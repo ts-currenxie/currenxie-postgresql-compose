@@ -11,6 +11,8 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: ebdb
   jenkins:
+    environment:
+      JAVA_OPTS: '-Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=300'
     image: shimmi/jenkins
     ports:
         - "8080:8080"
