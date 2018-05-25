@@ -1,0 +1,16 @@
+version: '3'
+services:
+  postgres:
+    build:
+      context: .
+    command: postgres -c hba_file=/etc/pg_hba.conf
+    volumes:
+      - ./pg_hba.conf:/etc/pg_hba.conf
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ebdb
+  jenkins:
+    image: jenkinsci/blueocean:latest
+    ports:
+      - "8080:8080"
