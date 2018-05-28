@@ -1,19 +1,23 @@
-version: '3'
+version: '3.4'
 services:
-  postgres:
-    build:
-      context: .
-    command: postgres -c hba_file=/etc/pg_hba.conf
-    volumes:
-      - ./pg_hba.conf:/etc/pg_hba.conf
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: ebdb
+  # postgres:
+  #   build:
+  #     context: .
+  #   command: postgres -c hba_file=/etc/pg_hba.conf
+  #   volumes:
+  #     - ./pg_hba.conf:/etc/pg_hba.conf
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: postgres
+  #     POSTGRES_DB: ebdb
   jenkins:
     environment:
       JAVA_OPTS: '-Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=300'
     image: shimmi/jenkins
+    deploy:
+      resources:
+        limits:
+          memory: 2048M
     ports:
         - "8080:8080"
     volumes:
